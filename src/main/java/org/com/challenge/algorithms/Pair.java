@@ -38,6 +38,14 @@ public class Pair {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(left, right);
+        int hash = 7;
+        hash = 31 * hash + right;
+        hash = 31 * hash + left;
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "," + right + ')';
     }
 }

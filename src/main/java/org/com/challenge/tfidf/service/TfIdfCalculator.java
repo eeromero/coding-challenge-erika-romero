@@ -60,7 +60,7 @@ public class TfIdfCalculator {
      * @return the TF/IDF of term. Result is rounded with 2 decimals
      */
     public static double tfIdfTT(Map<String, Integer> doc, Map<String, Map<String, Integer>> docs, String terms) {
-        String[] termList = terms.toLowerCase().split(" ");
+        String[] termList = terms.toLowerCase().split("\\s");
         return Arrays.stream(termList).mapToDouble(term -> tfIdfT(doc, docs, term)).sum();
     }
 }

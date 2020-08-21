@@ -1,7 +1,5 @@
 package org.com.challenge.tfidf.service;
 
-import com.google.common.base.Strings;
-
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -12,10 +10,18 @@ public class TfIdfService {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     private static final String FILE_EXTENSION = ".txt";
+    //save all the processed files
+    //for each file doc keeps a count of each word
+    //dos={"file1.txt": {"the", 1, "table", 4}, "file2.txt": {"chair",7 , "table",7}}
     private Map<String, Map<String, Integer>> docs;
+    //save and keep tfidf's in a descendant order
+    //ranking={0.4: [file1.txt], 0.2: [file2.txt]}
     private Map<Double, List<String>> ranking;
+    //dir where the files are taken
     private String url;
+    //words to search in in the documents
     private String terms;
+    //number of file names to display with the best ftidf
     private int n;
 
     public TfIdfService(String urlDir, String terms, int n) {
@@ -57,7 +63,9 @@ public class TfIdfService {
      * files with the same ftidf are also printed
      */
     public void printResult() {
-        System.out.println("Results:");
+        System.out.println("-------------------------");
+        System.out.println(n + " top files of " + docs.size() + " files");
+        System.out.println("-------------------------");
         Iterator<Map.Entry<Double, List<String>>> it = ranking.entrySet().iterator();
         int count = 0;
         while (it.hasNext() && count < n) {
@@ -90,7 +98,7 @@ public class TfIdfService {
             while ((line = reader.readLine()) != null) {
                 String[] words = line.split("\\s");
                 for (String word : words) {
-                    if (!Strings.isNullOrEmpty(word.trim())) {
+                    if (word.length() > 0) {
                         String wordLowerCase = word.trim().toLowerCase();
                         doc.put(wordLowerCase, doc.getOrDefault(wordLowerCase, 0) + 1);
                     }
@@ -104,9 +112,6 @@ public class TfIdfService {
 
     public List<File> getFiles() {
         File folder = new File(getUrl());
-        if (folder.listFiles() == null || folder.listFiles().length == 0) {
-            return Collections.EMPTY_LIST;
-        }
         return Arrays.stream(folder.listFiles())
                 .filter(file -> file.getName().toLowerCase().endsWith(FILE_EXTENSION))
                 .collect(Collectors.toList());

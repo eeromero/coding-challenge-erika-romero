@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>coding-challenge-erika-romero</artifactId>
+    <artifactId>coding-challenge</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -39,8 +39,5 @@
             <artifactId>guava</artifactId>
             <version>19.0</version>
         </dependency>
-
     </dependencies>
-
-
 </project>

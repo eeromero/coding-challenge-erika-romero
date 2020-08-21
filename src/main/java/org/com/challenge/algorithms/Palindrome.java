@@ -2,7 +2,7 @@ package org.com.challenge.algorithms;
 
 public class Palindrome {
 
-    public boolean isPalindrome(String s) {
+    public static boolean isPalindrome(String s) {
         int headPointer = 0;
         int tailPointer = s.length() - 1;
         String word = s.toLowerCase();
@@ -22,5 +22,13 @@ public class Palindrome {
             }
         }
         return isPalindrome;
+    }
+
+    public static void main(String[] args) {
+        if (Palindrome.isPalindrome(args[0])) {
+            System.out.println(args[0] + " is palindrome");
+        } else {
+            System.out.println(args[0] + "is not palindrome");
+        }
     }
 }
